@@ -322,6 +322,20 @@ class Daemon:
         return self._height
 
 
+class HistoriaDaemon(Daemon):
+
+    async def masternode_broadcast(self, params):
+        '''Broadcast a transaction to the network.'''
+        return await self._send_single('masternodebroadcast', params)
+
+    async def masternode_list(self, params):
+        '''Return the masternode status.'''
+        return await self._send_single('masternodelist', params)
+
+    async def protx(self, params):
+        '''Set of commands to execute ProTx related actions.'''
+        return await self._send_single('protx', params)
+
 class DashDaemon(Daemon):
 
     async def masternode_broadcast(self, params):
