@@ -45,6 +45,7 @@ from electrumx.lib.script import (_match_ops, Script, ScriptError,
 import electrumx.lib.tx as lib_tx
 from electrumx.lib.tx import Tx
 import electrumx.lib.tx_dash as lib_tx_dash
+import electrumx.lib.tx_historia as lib_tx_historia
 import electrumx.lib.tx_axe as lib_tx_axe
 import electrumx.server.block_processor as block_proc
 import electrumx.server.daemon as daemon
