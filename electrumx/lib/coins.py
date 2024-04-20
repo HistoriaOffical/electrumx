@@ -1290,11 +1290,11 @@ class Historia(Coin):
     GENESIS_HASH = ('00000eabb15c5ad6e93847c3913bc312'
                     'c716e16e6c0158de004d53df1f58067f')
     X16RV2_ACTIVATION_TIME = 1582758000   # algo switch to x16rv2 at this timestamp
-    P2PKH_VERBYTE = bytes.fromhex("4c")
-    P2SH_VERBYTES = (bytes.fromhex("10"),)
-    WIF_BYTE = bytes.fromhex("cc")
+    P2PKH_VERBYTE = bytes.fromhex("28")
+    P2SH_VERBYTES = (bytes.fromhex("12"),)
+    WIF_BYTE = bytes.fromhex("EF")
     TX_COUNT_HEIGHT =  1084665
-    TX_COUNT = 2157510
+    TX_COUNT = 1523936
     TX_PER_BLOCK = 4
     RPC_PORT = 10100
     PEERS = [
