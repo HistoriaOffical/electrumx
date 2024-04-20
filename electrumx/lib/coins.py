@@ -48,7 +48,7 @@ import electrumx.lib.tx_dash as lib_tx_dash
 import electrumx.lib.tx_axe as lib_tx_axe
 import electrumx.server.block_processor as block_proc
 import electrumx.server.daemon as daemon
-from electrumx.server.session import (ElectrumX, DashElectrumX,
+from electrumx.server.session import (ElectrumX, DashElectrumX, HistoriaElectrumX,
                                       SmartCashElectrumX, AuxPoWElectrumX,
                                       NameIndexElectrumX, NameIndexAuxPoWElectrumX)
 
@@ -1280,6 +1280,53 @@ class DogecoinTestnet(Dogecoin):
     GENESIS_HASH = ('bb0a78264637406b6360aad926284d54'
                     '4d7049f45189db5664f3c4d07350559e')
 
+class Historia(Coin):
+    NAME = "Historia"
+    SHORTNAME = "HTA"
+    NET = "mainnet"
+    XPUB_VERBYTES = bytes.fromhex("02fe52cc")
+    XPRV_VERBYTES = bytes.fromhex("02fe52f8")
+    GENESIS_HASH = ('00000eabb15c5ad6e93847c3913bc312'
+                    'c716e16e6c0158de004d53df1f58067f')
+    X16RV2_ACTIVATION_TIME = 1582758000   # algo switch to x16rv2 at this timestamp
+    P2PKH_VERBYTE = bytes.fromhex("4c")
+    P2SH_VERBYTES = (bytes.fromhex("10"),)
+    WIF_BYTE = bytes.fromhex("cc")
+    TX_COUNT_HEIGHT =  1084665
+    TX_COUNT = 2157510
+    TX_PER_BLOCK = 4
+    RPC_PORT = 10100
+    PEERS = [
+
+    ]
+    SESSIONCLS = HistoriaElectrumX
+    DAEMON = daemon.HistoriaDaemon
+    DESERIALIZER = lib_tx_dash.DeserializerDash
+
+    @classmethod
+    def static_header_offset(cls, height):
+        return height * cls.BASIC_HEADER_SIZE
+
+    @classmethod
+    def header_hash(cls, header):
+        timestamp = util.unpack_le_uint32_from(header, 68)[0]
+        '''Given a header return the hash.'''
+        if timestamp >= cls.X16RV2_ACTIVATION_TIME:
+            return x16rv2_hash.getPoWHash(header)
+        else:
+            return x16r_hash.getPoWHash(header)
+
+    @classmethod
+    def header_hash(cls, header):
+        '''Given a header return the hash.'''
+        timestamp = util.unpack_le_uint32_from(header, 68)[0]
+
+        if timestamp >= cls.X16RV2_ACTIVATION_TIME:
+            import x16rv2_hash
+            return x16rv2_hash.getPoWHash(header)
+        else:
+            import x16r_hash
+            return x16r_hash.getPoWHash(header)
 
 # Source: https://github.com/dashpay/dash
 class Dash(Coin):
