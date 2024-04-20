@@ -1301,7 +1301,7 @@ class Historia(Coin):
     ]
     SESSIONCLS = HistoriaElectrumX
     DAEMON = daemon.HistoriaDaemon
-    DESERIALIZER = lib_tx_dash.DeserializerDash
+    DESERIALIZER = lib_tx_historia.DeserializerDash
 
     @classmethod
     def static_header_offset(cls, height):
