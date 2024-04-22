@@ -4,7 +4,7 @@
     :target: https://coveralls.io/github/spesmilo/electrumx
 
 ===============================================
-ElectrumX - Reimplementation of electrum-server
+ElectrumX - Historia Network
 ===============================================
 
   :Licence: MIT
